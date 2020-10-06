@@ -14,6 +14,7 @@ export class HomePage implements OnInit{
   public levelMode:string ='';
   public errors = [];
   public isVisible:boolean = true; 
+  public isBtnVisible:boolean = false;
   constructor() {}
 
   ngOnInit(){
@@ -36,5 +37,9 @@ export class HomePage implements OnInit{
 
   private showQuestion() {
     this.isVisible = false;
+  }
+
+  public showBtnNxtQuestion() {
+    this.isBtnVisible = true;
   }
 }

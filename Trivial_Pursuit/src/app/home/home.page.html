@@ -43,12 +43,12 @@
         <h2>Bienvenue {{username}}</h2>
         <h1>Quelle est l'origine du cornichon ?</h1>
         <div id="btnGroup">
-          <button type="submit">Réponse A</button>
-          <button type="submit">Réponse B</button>
-          <button type="submit">Réponse C</button>
-          <button type="submit">Réponse D</button>
+          <button type="submit" (click)="showBtnNxtQuestion()">Réponse A</button>
+          <button type="submit" (click)="showBtnNxtQuestion()">Réponse B</button>
+          <button type="submit" (click)="showBtnNxtQuestion()">Réponse C</button>
+          <button type="submit" (click)="showBtnNxtQuestion()">Réponse D</button>
         </div>
-        <button class="mainBtn">Question suivante</button>
+        <button [hidden]="!isBtnVisible" class="mainBtn">Question suivante</button>
     </div>
 </div>
 
