@@ -38,10 +38,7 @@ export class HomePage implements OnInit{
 
   private showQuestion() {
     this.isVisible = false;
-    this.answers.push("A");
-    this.answers.push("B");
-    this.answers.push("C");
-    this.answers.push("D");
+    this.answers.push("A", "B", "C", "D");
   }
 
   public showBtnNxtQuestion() {
