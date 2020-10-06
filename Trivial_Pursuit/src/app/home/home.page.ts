@@ -15,6 +15,7 @@ export class HomePage implements OnInit{
   public errors = [];
   public isVisible:boolean = true; 
   public isBtnVisible:boolean = false;
+  public answers = [];
   constructor() {}
 
   ngOnInit(){
@@ -37,6 +38,10 @@ export class HomePage implements OnInit{
 
   private showQuestion() {
     this.isVisible = false;
+    this.answers.push("A");
+    this.answers.push("B");
+    this.answers.push("C");
+    this.answers.push("D");
   }
 
   public showBtnNxtQuestion() {
