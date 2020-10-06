@@ -3,4 +3,32 @@
 <p>Formulaire dans les 2 sens</p>
 <input type="text" [(ngModel)]="binding"/>
 <button (click)="clicBouton()">Click me</button>
-<p></p>
+<br><br>
+
+<p>Titre
+    <input type="text" [(ngModel)] = "title"/>
+</p>
+
+<p>Année
+    <input type="number" [(ngModel)] = "year"/>
+</p>
+
+<p>Type
+    <select [(ngModel)] = "type">
+        <option value="">Tous</option>
+        <option value="movie">Film</option>
+        <option value="serie">Série</option>
+        <option value="episode">Episode</option>
+    </select>
+</p>
+
+<div *ngIf="error">{{error}}</div>
+<button (click)="rechercher()">Rechercher</button>
+
+<div *ngIf="films && films.length > 0">
+    <div *ngFor="let film of films">
+        <img [src] = "film.Poster">
+        <p>{{film.Title}}</p>
+        <p>{{film.Year}}</p>
+    </div>
+</div>
