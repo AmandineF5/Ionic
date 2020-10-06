@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-rechercher',
@@ -11,7 +12,9 @@ export class RechercherComponent implements OnInit  {
     public year:number;
     public type:string = '';
     public films = [];
-    constructor(){}
+    constructor(private alertCtrl:AlertController){
+
+    }
 
     clicBouton(){
         this.binding = "Oops j'ai cliqué";
@@ -19,18 +22,33 @@ export class RechercherComponent implements OnInit  {
 
     public error:string =''; //gère les messages d'erreur
     //Vérification sur les champs
-    public rechercher(){
+    public async rechercher(){
         this.error = '';
-        if(!this.title || this.title.length <=3) {
-            this.error = "Veuillez saisir un titre de 3 caractères au minimum";
+        if(!this.title || this.title.length < 3) {
+            const alert =  await this.alertCtrl.create({
+                header : 'Informations manquantes',
+                message : "Veuillez saisir un titre de 3 caractères au minimum",
+                buttons: ['OK'],
+            });
+            alert.present();
             return;
         }
         if(!this.year || (this.year < 1900 || this.year > 2050)) {
-            this.error = "Veuillez saisir une année entre 1900 et 2050";
+            const alert =  await this.alertCtrl.create({
+                header : 'Informations manquantes',
+                message : "Veuillez saisir une année entre 1900 et 2050",
+                buttons: ['OK'],
+            });
+            alert.present();
             return;
         }
         if(this.type === undefined){
-            this.error = "Veuillez choisir un type";
+            const alert =  await this.alertCtrl.create({
+                header : 'Informations manquantes',
+                message : "Veuillez choisir un type",
+                buttons: ['OK'],
+            });
+            alert.present(); 
             return;
         }
         this.lancerRecherche();

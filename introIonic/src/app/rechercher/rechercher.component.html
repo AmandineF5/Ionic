@@ -1,34 +1,31 @@
-<p>{{binding}}</p>
+<ion-list>
+    <ion-item>
+        <ion-label position="floating">Titre</ion-label>
+        <ion-input type="test" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Année</ion-label>
+        <ion-input type="test" [(ngModel)]="year"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Type</ion-label>
+        <ion-select [(ngModel)]="type">
+            <ion-select-option value="">Tous</ion-select-option>
+            <ion-select-option value="movie">Film</ion-select-option>
+            <ion-select-option value="serie">Série</ion-select-option>
+            <ion-select-option value="episode">Episode</ion-select-option>
+        </ion-select>
+    </ion-item>
+</ion-list>
 
-<p>Formulaire dans les 2 sens</p>
-<input type="text" [(ngModel)]="binding"/>
-<button (click)="clicBouton()">Click me</button>
-<br><br>
-
-<p>Titre
-    <input type="text" [(ngModel)] = "title"/>
-</p>
-
-<p>Année
-    <input type="number" [(ngModel)] = "year"/>
-</p>
-
-<p>Type
-    <select [(ngModel)] = "type">
-        <option value="">Tous</option>
-        <option value="movie">Film</option>
-        <option value="serie">Série</option>
-        <option value="episode">Episode</option>
-    </select>
-</p>
+<ion-button expand="full" (click)="rechercher()">Rechercher</ion-button>
 
 <div *ngIf="error">{{error}}</div>
-<button (click)="rechercher()">Rechercher</button>
 
-<div *ngIf="films && films.length > 0">
-    <div *ngFor="let film of films">
+<ion-list *ngIf="films && films.length > 0">
+    <ion-card *ngFor="let film of films">
         <img [src] = "film.Poster">
-        <p>{{film.Title}}</p>
-        <p>{{film.Year}}</p>
-    </div>
-</div>
+        <ion-card-header>{{film.Title}}</ion-card-header>
+        <ion-card-content>{{film.Year}}</ion-card-content>
+    </ion-card>
+</ion-list>
