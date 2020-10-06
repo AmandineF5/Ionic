@@ -25,7 +25,7 @@
           <option value="hard">hard</option>
         </select>
         <div>
-          <input class="smallCbk" type="checkbox" value="false"/>
+          <input class="smallCbk" type="checkbox" [(ngModel)]="saveLoginInfos"/> 
           Sauvegarder mes informations
         </div>
       
@@ -43,9 +43,9 @@
         <h2>Bienvenue {{username}}</h2>
         <h1>Quelle est l'origine du cornichon ?</h1>
         <div id="btnGroup" *ngFor="let a of answers">
-          <button type="submit" (click)="showBtnNxtQuestion()">Réponse {{a}}</button>
+          <button type="submit" (click)="getAnswer(a)">Réponse {{a}}</button>
         </div>
-        <div [hidden]="!isBtnVisible">
+        <div *ngIf="isAnswered">
           <button class="mainBtn">Question suivante</button>
         </div>
         

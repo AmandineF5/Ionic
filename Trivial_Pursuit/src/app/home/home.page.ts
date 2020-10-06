@@ -14,8 +14,9 @@ export class HomePage implements OnInit{
   public levelMode:string ='';
   public errors = [];
   public isVisible:boolean = true; 
-  public isBtnVisible:boolean = false;
+  public isAnswered:boolean = false;
   public answers = [];
+  public userAnswer:string ='';
   constructor() {}
 
   ngOnInit(){
@@ -41,7 +42,9 @@ export class HomePage implements OnInit{
     this.answers.push("A", "B", "C", "D");
   }
 
-  public showBtnNxtQuestion() {
-    this.isBtnVisible = true;
+  private getAnswer(answer: string) {
+    this.userAnswer = answer;
+    this.isAnswered = true;
   }
+
 }

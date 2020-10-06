@@ -27,11 +27,16 @@
 #container a {
   text-decoration: none;
 }
+ button {
+  padding: 2vw;
+ }
 
 .mainBtn {
-  margin-top: 2vw;
+  margin-top: 4vw;
   font-size: medium;
-  background-color: lightgray;
+  background-color: lavender;
+  font-weight: bold;
+  border-radius: 5%;
 }
 
 select {
@@ -44,6 +49,8 @@ select {
 
 #btnGroup button {
   margin: 1vw 2vw;
+  border-radius: 5%;
+  background-color: lightgrey;
 }
 
 #btnGroup {
