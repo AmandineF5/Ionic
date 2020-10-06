@@ -1,3 +1,5 @@
+
+
 #container {
   text-align: center;
 
@@ -13,11 +15,11 @@
   line-height: 26px;
 }
 
-#container p {
+#container{
   font-size: 16px;
   line-height: 22px;
 
-  color: #8c8c8c;
+  color: black;;
 
   margin: 0;
 }
@@ -25,3 +27,22 @@
 #container a {
   text-decoration: none;
 }
+
+.mainBtn {
+  margin-top: 2vw;
+  font-size: medium;
+  background-color: lightgray;
+}
+
+select {
+  margin-bottom: 2vw;
+}
+
+.errors {
+  color: red;
+}
+
+#btnGroup button {
+  margin: 1vw 2vw;
+}
+

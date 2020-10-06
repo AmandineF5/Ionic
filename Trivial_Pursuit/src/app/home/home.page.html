@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Open Trivia
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,47 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Open Trivia</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <div id="loginForm" [hidden]="!isVisible">
+        <h1>Votre pseudo</h1>
+        <input type="text" [(ngModel)] = "username"/>
+    
+        <h1>Difficulté</h1>
+        <select [(ngModel)] = "levelMode">
+          <option value="easy">easy</option>
+          <option value="medium">medium</option>
+          <option value="hard">hard</option>
+        </select>
+        <div>
+          <input class="smallCbk" type="checkbox" value="false"/>
+          Sauvegarder mes informations
+        </div>
+      
+      <div *ngIf="errors && errors.length > 0">
+        <div *ngFor="let e of errors">
+          <p class="errors">{{e}}</p>
+        </div>
+      </div>
+      <div>
+        <button class="mainBtn" (click)="startGame()">Commencer</button>
+      </div>
+    </div>
+
+    <div id="loginForm" [hidden]="isVisible">
+        <h2>Bienvenue {{username}}</h2>
+        <h1>Quelle est l'origine du cornichon ?</h1>
+        <div id="btnGroup">
+          <button type="submit">Réponse A</button>
+          <button type="submit">Réponse B</button>
+          <button type="submit">Réponse C</button>
+          <button type="submit">Réponse D</button>
+        </div>
+        <button class="mainBtn">Question suivante</button>
+    </div>
+</div>
+
 </ion-content>
