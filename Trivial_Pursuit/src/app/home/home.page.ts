@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Error } from "../utils/app-errors-enum"
 
 @Component({
@@ -17,19 +18,29 @@ export class HomePage implements OnInit{
   public isAnswered:boolean = false;
   public answers = [];
   public userAnswer:string ='';
-  constructor() {}
+  constructor(private alertCtrl:AlertController) {}
 
   ngOnInit(){
     this.isVisible = true;
   }
 
-  public startGame() {
+  public async startGame() {
     if(!this.username || this.username.length < 3) {
-      this.errors.push(Error.Username);
+      const alert =  await this.alertCtrl.create({
+        header : 'Informations incorrectes',
+        message : Error.Username,
+        buttons: ['OK'],
+    });
+    alert.present();
       return;
     }
     if(!this.levelMode) {
-      this.errors.push(Error.Level);
+      const alert =  await this.alertCtrl.create({
+        header : 'Informations incorrectes',
+        message : Error.Level,
+        buttons: ['OK'],
+    });
+    alert.present();
       return;
     }
 

@@ -24,6 +24,7 @@
   margin: 0;
 }
 
+
 #container a {
   text-decoration: none;
 }
@@ -31,13 +32,7 @@
   padding: 2vw;
  }
 
-.mainBtn {
-  margin-top: 4vw;
-  font-size: medium;
-  background-color: lavender;
-  font-weight: bold;
-  border-radius: 5%;
-}
+
 
 select {
   margin-bottom: 2vw;
@@ -57,3 +52,28 @@ select {
   display: inline;
 }
 
+ion-title {
+  text-align: center;
+}
+
+.contentTitle {
+  padding: 2vw;
+}
+
+
+
+.card-center{
+  width:70%; 
+  display:block;
+  margin: 0 auto;
+  padding: 2vw;
+  text-align: center;
+}
+
+.card-title {
+  margin-bottom: 2vw;
+}
+
+.sc-ion-alert-md {
+  color: black !important;
+}
