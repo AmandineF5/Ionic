@@ -44,17 +44,24 @@
   
   <ion-title class="contentTitle" color="secondary">Bienvenue {{username}}</ion-title>
   
-  <ion-card class="card-center">
-    <ion-card-title class="card-title">Quelle est l'origine du cornichon ?</ion-card-title>
-    <ion-card-content id="btnGroup" *ngFor="let a of answers">
-      <ion-button id="answerBtn" type="submit" (click)="getAnswer(a)" color="medium">Réponse {{a}}</ion-button>
-    </ion-card-content>
-  </ion-card>
-
-    
-    <div *ngIf="isAnswered">
-      <ion-button expand="full" class="mainBtn">Question suivante</ion-button>
+  <ion-list *ngIf="questions && questions.length > 0">
+    <ion-card class="card-center">
+      <ion-title [innerHTML]="currentQuestion.question" class="card-title"></ion-title>
+      <ion-card-content *ngFor="let a of answers">
+        <ion-button id="answerBtn" type="submit" (click)="getAnswer(a)" [color]="!isAnswered ? 'medium' : (a === currentQuestion.correct_answer ? 'success' : 'danger')">{{a}}</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <div *ngIf="isAnswered && currentQuestionIndex !== questions.length-1">
+      <ion-title class="contentTitle" color="secondary">{{messageResultAnswer}}</ion-title>
+      <ion-button expand="full" class="mainBtn" (click)="goToNextQuestion()">Question suivante</ion-button>
     </div>
+    <div *ngIf="isAnswered && currentQuestionIndex === questions.length-1">
+      <ion-title class="contentTitle" color="secondary">{{messageResultAnswer}}</ion-title>
+      <ion-button expand="full" class="mainBtn" (click)="goToNextQuestion()">Voir mon score</ion-button>
+    </div>
+  </ion-list>
+
+
 
 </ion-content>     
       
