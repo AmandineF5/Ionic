@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { FilmsProvider } from '../providers/film.provider';
 
 @Component({
     selector: 'app-rechercher',
@@ -12,7 +13,8 @@ export class RechercherComponent implements OnInit  {
     public year:number;
     public type:string = '';
     public films = [];
-    constructor(private alertCtrl:AlertController){
+    constructor(private alertCtrl:AlertController, 
+        private rechercherFilm:FilmsProvider){
 
     }
 
@@ -55,28 +57,18 @@ export class RechercherComponent implements OnInit  {
     }
 
     private lancerRecherche(){
-        this.films = [
-            {
-                Title : 'The passenger',
-                Poster : 'assets/icon/favicon.png',
-                Year : 2012
-            },
-            {
-                Title : 'Jurassic park',
-                Poster : 'assets/icon/favicon.png',
-                Year : 1997
-            },
-            {
-                Title : 'Interstellar',
-                Poster : 'assets/icon/favicon.png',
-                Year : 2014
-            },
-            {
-                Title : 'Full metal jacket',
-                Poster : 'assets/icon/favicon.png',
-                Year : 1987
-            }
-        ];
+        this.rechercherFilm.search(this.title, this.year, this.type)
+        .then((resultat)=>{
+            this.films = resultat;
+        })
+        .catch(async (err)=>{
+            const alert = await this.alertCtrl.create({
+                header: "Erreur appel Service",
+                message: "Impossible de récupérer les films",
+                buttons: ["OK"],
+            });
+            alert.present();
+        });
     }
 
     ngOnInit(){}
