@@ -1,33 +1,34 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Film } from '../models/film';
 
 @Injectable()
 export class FilmsProvider {
-    public search(titre:string, year:number, type:string) : Promise<Array<Film>>{
+    constructor(private httpClient: HttpClient){}
+
+    public search(title:string, year:number, type:string) : Promise<Array<Film>>{
 
         return new Promise((resolve, reject) => {
-            resolve([
-                {
-                    Title : 'The passenger',
-                    Poster : 'assets/icon/favicon.png',
-                    Year : 2012
-                },
-                {
-                    Title : 'Jurassic park',
-                    Poster : 'assets/icon/favicon.png',
-                    Year : 1997
-                },
-                {
-                    Title : 'Interstellar',
-                    Poster : 'assets/icon/favicon.png',
-                    Year : 2014
-                },
-                {
-                    Title : 'Full metal jacket',
-                    Poster : 'assets/icon/favicon.png',
-                    Year : 1987
-                }
-            ]);
+           let params = new HttpParams();
+           params = params.append('apikey', '1898fc97');
+           params = params.append('s', title);
+           if(year){
+               params = params.append('y', String(year));
+           }
+           if(type && type !==''){
+               params = params.append('type', type);
+           }
+           this.httpClient.get('http://www.omdbapi.com/', {params:params}).toPromise()
+           .then((response) => {
+               if(response && response['Search'] && response['totalResults']){
+                   resolve(response['Search']);
+               } else {
+                   reject('Le serveur ne retourne pas de valeur');
+               }
+           })
+           .catch((error) => {
+               reject(error);
+           })
         });
     }
 }

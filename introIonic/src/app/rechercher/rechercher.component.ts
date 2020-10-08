@@ -56,19 +56,21 @@ export class RechercherComponent implements OnInit  {
         this.lancerRecherche();
     }
 
-    private lancerRecherche(){
-        this.rechercherFilm.search(this.title, this.year, this.type)
-        .then((resultat)=>{
-            this.films = resultat;
-        })
-        .catch(async (err)=>{
+    private async lancerRecherche(){
+        try {
+            this.films = await this.rechercherFilm.search(this.title, this.year, this.type);
+            for(let current of this.films){
+                console.log(current);
+            }
+        }catch (err) {
             const alert = await this.alertCtrl.create({
                 header: "Erreur appel Service",
-                message: "Impossible de récupérer les films",
+                message: "Aucun film trouvé",
                 buttons: ["OK"],
             });
             alert.present();
-        });
+        }
+        
     }
 
     ngOnInit(){}
