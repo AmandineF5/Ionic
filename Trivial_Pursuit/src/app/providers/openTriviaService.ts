@@ -10,9 +10,6 @@ export class OpenTriviaService {
     constructor(private httpClient: HttpClient){}
 
     public getQuestions(nbQuestions:number, levelMode:string) : Promise<Array<Question>>{
-
-        this.apiUrl = 'https://opentdb.com/api.php?amount='+ nbQuestions + '&difficulty' + levelMode;
-
         return new Promise(async (resolve, reject)=>{
             let params = new HttpParams();
            params = params.append('amount', String(nbQuestions));

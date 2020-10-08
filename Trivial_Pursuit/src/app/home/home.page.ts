@@ -24,9 +24,8 @@ export class HomePage implements OnInit{
   private currentQuestionIndex:number = 0;
   public messageResultAnswer:string ='';
   public userAnswer:string ='';
-  public nbQuestions:number = 2;
-  public resetQuestion = new Question ("","","","","",[]);
-  
+  public nbQuestions:number = 10;
+
   constructor(
     private alertCtrl:AlertController,
     private questionsService:OpenTriviaService
@@ -105,8 +104,8 @@ export class HomePage implements OnInit{
       this.showQuestion();
       this.isAnswered = false;
     } else {
-      this.reset();
       this.showScore(); 
+      this.reset();
     }
   }
 
