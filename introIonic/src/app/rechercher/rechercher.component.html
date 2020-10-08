@@ -23,7 +23,7 @@
 <div *ngIf="error">{{error}}</div>
 
 <ion-list *ngIf="films && films.length > 0">
-    <ion-card *ngFor="let film of films">
+    <ion-card *ngFor="let film of films" [routerLink]="['/details']">
         <img [src] = "film.Poster">
         <ion-card-header>{{film.Title}}</ion-card-header>
         <ion-card-content>{{film.Year}}</ion-card-content>
