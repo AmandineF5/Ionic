@@ -20,6 +20,7 @@ export class HomePage implements OnInit{
   public questions = Array<Question>();
   public currentQuestion:Question;
   public answers = [];
+  public score:number = 0;
   private currentQuestionIndex:number = 0;
   public messageResultAnswer:string ='';
   public userAnswer:string ='';
@@ -77,7 +78,7 @@ export class HomePage implements OnInit{
     
   }
 
-  public showQuestion(){
+  public showQuestion(){    
     console.log(this.questions);
     this.currentQuestion = this.questions[this.currentQuestionIndex];
     this.answers = [];
@@ -93,6 +94,7 @@ export class HomePage implements OnInit{
     this.userAnswer = answer;
     if(answer === this.currentQuestion.correct_answer){
       this.messageResultAnswer = "Bonne réponse ! Bien joué :)";
+      this.score++;
     } else {
       this.messageResultAnswer = "Mauvaise réponse ! Mal joué :(";
     }
@@ -105,11 +107,19 @@ export class HomePage implements OnInit{
       this.showQuestion();
       this.isAnswered = false;
     } else {
-      this.isVisible = true; 
+      this.isVisible = true;
+      this.showScore(); 
     }
   }
 
-
+async showScore(){
+  const alert = await this.alertCtrl.create({
+    header: "Votre score",
+    message: ""+this.score,
+    buttons: ["OK"]
+  });
+  alert.present();
+}
   private shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
