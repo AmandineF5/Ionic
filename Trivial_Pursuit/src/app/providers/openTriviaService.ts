@@ -1,47 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Question } from '../models/question';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ApiCode } from '../utils/app-api-code';
 
 @Injectable()
 export class OpenTriviaService {
+    public apiCodeValue: string = '';
+
+    constructor(private httpClient: HttpClient){}
+
     public getQuestions(nbQuestions:number, levelMode:string) : Promise<Array<Question>>{
 
+        this.apiUrl = 'https://opentdb.com/api.php?amount='+ nbQuestions + '&difficulty' + levelMode;
+
         return new Promise(async (resolve, reject)=>{
-            resolve(
-                [
-                    { 
-                        category: "Entertainment: Japanese Anime & Manga", 
-                        type: "multiple", 
-                        difficulty: "easy", 
-                        question: "1- In &quot;Fairy Tail&quot;, what is the nickname of Natsu Dragneel?", 
-                        correct_answer: "The Salamander", 
-                        incorrect_answers: ["The Dragon Slayer", "The Dragon", "The Demon"] 
-                    }, 
-                    { 
-                        category: "Entertainment: Video Games", 
-                        type: "boolean", 
-                        difficulty: "medium",
-                        question: "2- &quot;Return to Castle Wolfenstein&quot; was the only game of the Wolfenstein series where you don&#039;t play as William &quot;B.J.&quot; Blazkowicz.", 
-                        correct_answer: "False", 
-                        incorrect_answers: ["True"] 
-                    },
-                    { 
-                        category: "Entertainment: Japanese Anime & Manga", 
-                        type: "multiple", 
-                        difficulty: "easy", 
-                        question: "3- In &quot;Fairy Tail&quot;, what is the nickname of Natsu Dragneel?", 
-                        correct_answer: "The Salamander", 
-                        incorrect_answers: ["The Dragon Slayer", "The Dragon", "The Demon"] 
-                    }, 
-                    { 
-                        category: "Entertainment: Video Games", 
-                        type: "boolean", 
-                        difficulty: "medium",
-                        question: "4- &quot;Return to Castle Wolfenstein&quot; was the only game of the Wolfenstein series where you don&#039;t play as William &quot;B.J.&quot; Blazkowicz.", 
-                        correct_answer: "False", 
-                        incorrect_answers: ["True"] 
-                    },
-                ]
-            );
+            let params = new HttpParams();
+           params = params.append('amount', String(nbQuestions));
+           if(levelMode){
+               params = params.append('difficulty', levelMode);
+           }
+           this.httpClient.get('https://opentdb.com/api.php', {params:params}).toPromise()
+           .then((response) => {
+               if(response && response['response_code'] === 0 && response['results']){
+                   resolve(response['results']);
+               } else {
+                   reject("Impossible de récupérer les questions" );
+               }
+           })
+           .catch((error) => {
+               reject(error);
+           })
         });
     }
 

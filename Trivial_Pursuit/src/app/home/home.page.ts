@@ -24,7 +24,8 @@ export class HomePage implements OnInit{
   private currentQuestionIndex:number = 0;
   public messageResultAnswer:string ='';
   public userAnswer:string ='';
-  public nbQuestions:number = 0;
+  public nbQuestions:number = 2;
+  public resetQuestion = new Question ("","","","","",[]);
   
   constructor(
     private alertCtrl:AlertController,
@@ -54,27 +55,24 @@ export class HomePage implements OnInit{
     alert.present();
       return;
     }
-
+    this.isVisible = false;
     await this.loadQuestions();
     this.showQuestion();
   }
 
   private async loadQuestions() {
-    this.isVisible = false;
-    this.nbQuestions = 2;
-    this.questionsService.getQuestions(this.nbQuestions, this.levelMode)
-    .then((questions)=>{
-      this.questions = questions;
+    
+    try {
+      this.questions = await this.questionsService.getQuestions(this.nbQuestions, this.levelMode);
       this.shuffle(this.questions);
-    })
-    .catch(async (err)=>{
+    } catch(err){
       const alert = await this.alertCtrl.create({
         header: "Erreur de chargement des questions",
         message: "Impossible de récupérer les questions",
         buttons: ["OK"]
       });
       alert.present();
-    });
+    }
     
   }
 
@@ -107,7 +105,7 @@ export class HomePage implements OnInit{
       this.showQuestion();
       this.isAnswered = false;
     } else {
-      this.isVisible = true;
+      this.reset();
       this.showScore(); 
     }
   }
@@ -136,6 +134,15 @@ async showScore(){
       array[randomIndex] = temporaryValue;
     }
   
+  }
+
+  private reset(){
+    this.currentQuestion = null;
+    this.answers = [];
+    this.isVisible = true;
+    this.isAnswered = false;
+    this.score = 0;
+    this.currentQuestionIndex = 0;
   }
   
 

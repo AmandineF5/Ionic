@@ -44,11 +44,13 @@
   
   <ion-title class="contentTitle" color="secondary">Bienvenue {{username}}</ion-title>
   
-  <ion-list *ngIf="questions && questions.length > 0">
+  <ion-list *ngIf="questions && questions.length > 0 && currentQuestion">
     <ion-card class="card-center">
-      <ion-title [innerHTML]="currentQuestion.question" class="card-title"></ion-title>
+      <ion-card-header>
+        <ion-card-title [innerHTML]="currentQuestion.question"></ion-card-title>
+      </ion-card-header>
       <ion-card-content *ngFor="let a of answers">
-        <ion-button id="answerBtn" type="submit" (click)="getAnswer(a)" [color]="!isAnswered ? 'medium' : (a === currentQuestion.correct_answer ? 'success' : 'danger')">{{a}}</ion-button>
+        <ion-button [innerHTML]="a" type="submit" (click)="getAnswer(a)" [color]="!isAnswered ? 'medium' : (a === currentQuestion.correct_answer ? 'success' : 'danger')"></ion-button>
       </ion-card-content>
     </ion-card>
     <div *ngIf="isAnswered && currentQuestionIndex !== questions.length-1">
