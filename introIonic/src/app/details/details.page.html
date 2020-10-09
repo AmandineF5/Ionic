@@ -8,5 +8,17 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngIf="film">
+    <img [src]="film.Poster">
+    <ion-card-header>
+      <ion-card-subtitle>{{film.Title}}</ion-card-subtitle>
+      <ion-card-title>{{film.Year}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{film.Plot}}
+      <ion-button (click)="lirePlot()" [disabled]="isLu">Lire
+        <ion-icon slot="end" name="musical-note" ></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
